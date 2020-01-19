@@ -10,6 +10,11 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { HomeComponent } from './home/home.component';
 
 import { RouterModule, Routes } from '@angular/router';
+import { FootherComponent } from './foother/foother.component';
+import { FlashMessagesModule } from 'angular2-flash-messages';
+import { FormsModule } from '@angular/forms';
+
+import { CheckFormService } from './check-form.service';
 
 const appRoute: Routes = [
   {path: '', component: HomeComponent},
@@ -25,14 +30,17 @@ const appRoute: Routes = [
     RegComponent,
     AuthComponent,
     DashboardComponent,
-    HomeComponent
+    HomeComponent,
+    FootherComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    RouterModule.forRoot(appRoute)
+    RouterModule.forRoot(appRoute),
+    FormsModule,
+    FlashMessagesModule.forRoot()
   ],
-  providers: [],
+  providers: [CheckFormService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
