@@ -13,8 +13,10 @@ import { RouterModule, Routes } from '@angular/router';
 import { FootherComponent } from './foother/foother.component';
 import { FlashMessagesModule } from 'angular2-flash-messages';
 import { FormsModule } from '@angular/forms';
+import { HttpModule } from '@angular/http';
 
 import { CheckFormService } from './check-form.service';
+import { AuthService } from './auth.service';
 
 const appRoute: Routes = [
   {path: '', component: HomeComponent},
@@ -38,9 +40,10 @@ const appRoute: Routes = [
     AppRoutingModule,
     RouterModule.forRoot(appRoute),
     FormsModule,
-    FlashMessagesModule.forRoot()
+    FlashMessagesModule.forRoot(),
+    HttpModule
   ],
-  providers: [CheckFormService],
+  providers: [CheckFormService, AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

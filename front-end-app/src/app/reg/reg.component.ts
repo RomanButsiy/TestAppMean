@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CheckFormService } from '../check-form.service';
+import { AuthService } from '../auth.service';
 import { FlashMessagesService } from 'angular2-flash-messages';
+import { Router } from '@angular/router'
 
 @Component({
   selector: 'app-reg',
@@ -16,7 +18,9 @@ export class RegComponent implements OnInit {
 
   constructor(
     private checkForm: CheckFormService,
-    private flashMessages: FlashMessagesService
+    private flashMessages: FlashMessagesService,
+    private router: Router,
+    private authService: AuthService
   ) { }
 
   ngOnInit() {
@@ -29,24 +33,36 @@ export class RegComponent implements OnInit {
        login: this.login,
        password: this.password
      };
-     const messagesAlert = {
+     const messageAlert = {
        cssClass: 'alert-danger',
        timeout: 4000
      };
+
+     const messageSucces = {
+       cssClass: 'alert-success',
+       timeout: 4000
+     };
      if (!this.checkForm.checkName(user.name)) {
-       this.flashMessages.show("Ім'я користувача не було введено", messagesAlert);
+       this.flashMessages.show("Ім'я користувача не було введено", messageAlert);
        return false;
      } else if (!this.checkForm.checkLogin(user.login)) {
-       this.flashMessages.show("Логін користувача не було введено", messagesAlert);
+       this.flashMessages.show("Логін користувача не було введено", messageAlert);
        return false;
      } else if (!this.checkForm.checkEmail(user.email)) {
-       this.flashMessages.show("Електрону пошту користувача не було введено", messagesAlert);
+       this.flashMessages.show("Електрону пошту користувача не було введено", messageAlert);
        return false;
      } else if (!this.checkForm.checkPassword(user.password)) {
-       this.flashMessages.show("Пароль користувача не було введено", messagesAlert);
+       this.flashMessages.show("Пароль користувача не було введено", messageAlert);
        return false;
      }
-     return false;
+     this.authService.registerUser(user).subscribe(data => {
+       if (!data.success) {
+         this.flashMessages.show(data.msg, messageAlert);
+         this.router.navigate(['/reg']);
+       } else {
+         this.flashMessages.show(data.msg, messageSucces);
+         this.router.navigate(['/auth']);
+       }
+     });
   }
-
 }
