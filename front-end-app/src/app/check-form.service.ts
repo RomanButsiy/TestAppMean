@@ -8,7 +8,7 @@ export class CheckFormService {
   constructor() { }
 
   checkName(name) {
-    if (name == undefined) {
+    if (name == undefined || name == "") {
       return false;
     } else {
       return true;
@@ -16,7 +16,7 @@ export class CheckFormService {
   }
 
   checkLogin(login) {
-    if (login == undefined) {
+    if (login == undefined || login == "") {
       return false;
     } else {
       return true;
@@ -24,7 +24,7 @@ export class CheckFormService {
   }
 
   checkEmail(email) {
-    if (email == undefined) {
+    if (email == undefined || email == "") {
       return false;
     } else {
       return true;
@@ -32,7 +32,7 @@ export class CheckFormService {
   }
 
   checkPassword(password) {
-    if (password == undefined) {
+    if (password == undefined || password == "") {
       return false;
     } else {
       return true;

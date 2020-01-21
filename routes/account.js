@@ -18,7 +18,7 @@ router.post('/reg', (req, res) => {
   });
   User.addUser(newUser, (err, user) => {
     if (err) {
-      res.json({success: false, msg: 'Користувача небуло добавлено'});
+      res.json({success: false, msg: 'Користувача не було добавлено'});
     } else {
       res.json({success: true, msg: 'Користувача було добавлено'})
     }
@@ -31,16 +31,17 @@ router.post('/auth', (req, res) => {
   User.getUserByLogin(login, (err, user) => {
     if (err) throw err;
     if (!user) {
-      return res.json({success: false, msg: 'Користувача ${login} не було знайдено'});
+      return res.json({success: false, msg: 'Користувача не було знайдено'});
     }
     User.comparePass(password, user.password, (err, isMatch) => {
       if (err) throw err;
       if (isMatch) {
-        const token = jwt.sing(user, db.secret, {
+        const token = jwt.sign(user.toJSON(), db.secret, {
           expiresIn: 3600 * 24
         });
         res.json({
           success: true,
+          msg: 'Ви успішно авторизувалися',
           token: 'JWT ' + token,
           user: {
             id: user._id,

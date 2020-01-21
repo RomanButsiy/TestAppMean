@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CheckFormService } from '../check-form.service';
 import { AuthService } from '../auth.service';
 import { FlashMessagesService } from 'angular2-flash-messages';
-import { Router } from '@angular/router'
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-reg',
@@ -37,7 +37,6 @@ export class RegComponent implements OnInit {
        cssClass: 'alert-danger',
        timeout: 4000
      };
-
      const messageSucces = {
        cssClass: 'alert-success',
        timeout: 4000
