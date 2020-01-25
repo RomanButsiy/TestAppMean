@@ -3,6 +3,8 @@
   <nav class="my-2 my-md-0 mr-md-3">
     <a class="p-2 text-dark" [routerLink]="['/']">Головна</a>
   </nav>
-  <a class="btn btn-outline-primary mr-3" [routerLink]="['/auth']">Вхід</a>
-  <a class="btn btn-outline-primary" [routerLink]="['/reg']">Реєстрація</a>
+
+  <a *ngIf="authService.isLoggedIn()" class="btn btn-outline-warning mr-3" [routerLink]="['/dashboard']">Кабінет користувача</a>
+  <a *ngIf="!authService.isLoggedIn()" class="btn btn-outline-primary mr-3" [routerLink]="['/auth']">Вхід</a>
+  <a *ngIf="!authService.isLoggedIn()" class="btn btn-outline-primary" [routerLink]="['/reg']">Реєстрація</a>
 </div>
