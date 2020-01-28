@@ -1,4 +1,4 @@
 module.exports = {
-  db: 'mongodb://localhost:27017/website',
+  db: 'mongodb+srv://roman:<password>@test-app-mean-wxfx1.mongodb.net/test?retryWrites=true&w=majority',
   secret: 'root_pass'
 }

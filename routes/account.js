@@ -16,13 +16,20 @@ router.post('/reg', (req, res) => {
     login: req.body.login,
     password: req.body.password
   });
-  User.addUser(newUser, (err, user) => {
-    if (err) {
-      res.json({success: false, msg: 'Користувача не було добавлено'});
+  User.getUserByLogin(newUser.login, (err, user) => {
+    if (err) throw err;
+    if (user) {
+      res.json({success: false, msg: 'Користувач з таким логіном вже зареєстрований'});
     } else {
-      res.json({success: true, msg: 'Користувача було добавлено'})
+      User.addUser(newUser, (err, user) => {
+        if (err) {
+          res.json({success: false, msg: 'Користувача не було добавлено'});
+        } else {
+          res.json({success: true, msg: 'Користувача було добавлено'});
+        }
+      });
     }
-  })
+  });
 });
 
 router.post('/auth', (req, res) => {

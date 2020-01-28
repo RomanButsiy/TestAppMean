@@ -9,7 +9,7 @@ const account = require('./routes/account');
 
 const app = express();
 
-const port = 3000;
+const port = process.env.PORT || 8080;
 
 app.use(passport.initialize());
 app.use(passport.session());
@@ -37,6 +37,10 @@ app.get('/', (req, res) => {
 });
 
 app.use('/account', account);
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public/index.html'));
+});
 
 app.listen(port, () => {
   console.log("Сервер запущено на порті " + port);
